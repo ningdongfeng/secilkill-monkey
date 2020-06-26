@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body th:inline="text">
+<!--左侧div-->
+<div style="float: left">
+    <img th:src="${product.imageurl}">
+</div>
+
+<!--右侧div-->
+<div style="float: left">
+    <p>
+        [[${product.name}]] [[${product.namedesc}]]
+    </p>
+    <span style="color: red;font-size:20px;font-weight: bold;">[[${product.price}]]</span>
+    <span>剩余[[${product.store}]]件</span>
+
+    <p id="secKillTip">
+        <!--显示秒杀按钮的区域-->
+    </p>
+</div>
+
+<!--导入js-->
+<script th:src="@{/js/jquery.min.js}"></script>
+<!--导入倒计时的js-->
+<script th:src="@{/js/jquery.countdown.min.js}"></script>
+<!--导入自己写的秒杀js-->
+<script th:src="@{/js/secKill.js}"></script>
+
+<script type="text/javascript" th:inline="javascript">
+    $(function () {
+        //把上下文路径赋值给模块里面的某个属性
+        secKillModule.contextPath=[[${#request.getContextPath()}]];
+
+        var productId=[[${product.id}]];
+        var nowTime=[[${nowTime}]];
+        var startTime=[[${product.starttime.getTime()}]];
+        var endTime=[[${product.endtime.getTime()}]];
+        secKillModule.func.initDetail(productId,nowTime,startTime,endTime);
+    });
+
+</script>
+</body>
+</html>

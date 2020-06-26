@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>秒杀商品列表</title>
+</head>
+<body th:inline="text">
+<div th:each="product:${productList}" th:style="${productStat.count%5==0 ? 'clear:both;float:left;width:285px;margin:18px;' : 'float:left;width:285px;margin:18px;'}">
+    <a th:href="@{'/seckill/detail/'+${product.id}}" target="_blank">
+    <img th:src="@{${product.imageurl}}">
+    </a>
+    <br>
+    <a th:href="@{'/seckill/detail/'+${product.id}}" target="_blank">
+        [[${product.name}]] [[${product.namedesc}]]<br>
+    </a>
+    <span style="color: red;font-size:20px;font-weight: bold;">[[${product.price}]]</span> 剩余：[[${product.store}]]件
+</div>
+</body>
+</html>
